@@ -1,14 +1,8 @@
 import React from "react";
+import CalculateDifferenceDays from "./CalculateDifferenceDays";
 
 function DayLeftRender(task) {
-    const deadline = new Date(task.deadline);
-    const today = new Date();
-    today.setHours(0, 0, 0);
-    var today_time = today.getTime();
-    var deadline_time = deadline.getTime();
-    var time_difference = deadline_time - today_time;
-    var difference_days = Math.round(time_difference / (1000 * 3600 * 24));
-    // console.log("deadline is " + deadline);
+    var difference_days = CalculateDifferenceDays(task);
     if (difference_days === 1) {
       return <div className="left-day red-day list-border">1day left</div>;
     } else if (difference_days < 7 && difference_days>0) {
@@ -23,7 +17,10 @@ function DayLeftRender(task) {
           {difference_days + "days left"}
         </div>
       );
-    }else{
+    }else if(difference_days === 0){
+      return <div className="left-day red-day list-border">today!</div>;
+    }
+    else{
       return(
         <div className="left-day expired-day list-border">
           {"it's already over..."}

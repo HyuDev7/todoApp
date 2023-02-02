@@ -1,79 +1,61 @@
 import React from "react";
+import CalculateDifferenceDays from "../CalculateDifferenceDays";
+import TaskBar from "./TaskBar";
 
 function Today(props) {
   function todayTasks() {
     const passed_data = props.data;
     var today = new Date();
-    const today_time = today.getTime();
+    today.setHours(0,0,0)
+    // const today_time = today.getTime();
 
     const result = passed_data.filter((task) => {
-      const deadline = new Date(task.deadline);
-      const deadline_time = deadline.getTime();
-      return today_time === deadline_time;
+
+      return (CalculateDifferenceDays(task) === 0 ? task : null)
+
+      // const deadline = new Date(task.deadline);
+      // const deadline_time = deadline.getTime();
+      // console.log("this is today's time" + today)
+      // console.log("this is deadline time" + deadline)
+      // return today_time === deadline_time;
+      // return deadline === today;
     });
-    // console.log(result)
+
+    console.log("this is result log")
+    console.log(result)
     return result;
   }
 
   function renderTodayTasks(){
     const todayArray = todayTasks();
-    
+    console.log("this is today's log")
+    console.log(todayArray)
     if(todayArray.length === 0){
-      
       return(<div className="task-list list-border">
         no tasks!
       </div>)
     }else{
-      todayTasks(props.data).map((filtered_task, index) => {
+      return todayArray.map((filtered_task, index) => {
+        console.log(filtered_task)
         return (
-          <div className="task-list list-border d-flex">
-            <div className="deadline list-border">
-              {filtered_task.deadline}
-            </div>
-            <div className="content list-border">
-              {filtered_task.content}
-            </div>
-            {props.day_left(filtered_task)}
-            <button
-              onClick={props.delete}
-              type="button"
-              className="btn btn-dark list-border"
-            >
-              Delete
-            </button>
-          </div>
+          <TaskBar
+              key={index}
+              id={index}
+              taskItem={filtered_task}
+              onDelete={props.delete}
+              onDone={props.done}
+          />
         );
       })
     }
-  }
+  };
 
   return (
     <div className="today-tasks col-sm-6 col-lg-6">
       <h1 className="title">Today's your tasks</h1>
       <div className="board scroll today-board">
         <ul className="m-4 p-0">
-          {renderTodayTasks()
-            /* {todayTasks(props.data).map((filtered_task, index) => {
-            return (
-              <div className="task-list list-border d-flex">
-                <div className="deadline list-border">
-                  {filtered_task.deadline}
-                </div>
-                <div className="content list-border">
-                  {filtered_task.content}
-                </div>
-                {props.day_left(filtered_task)}
-                <button
-                  onClick={props.delete}
-                  type="button"
-                  className="btn btn-dark list-border"
-                >
-                  Delete
-                </button>
-              </div>
-            );
-          })} */
-          }
+          {renderTodayTasks()}
         </ul>
       </div>
     </div>

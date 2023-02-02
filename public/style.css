@@ -5,7 +5,7 @@
 }
 .background {
   padding: 3%;
-  height: 100vh;
+  height: 100%;
   background-color: #f8f8f8;
   background-image: url("https://www.transparenttextures.com/patterns/black-thread-light.png");
   /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
@@ -35,12 +35,16 @@ margin-left: 2%;
   padding: 3%;
   margin-left: 5%;
 }
-.task-list button{
+.delete-button{
   position: absolute;
   right: -15px;
-  bottom: -5px;
+  bottom: -17px;
 }
-
+.done-button{
+  position: absolute;
+  right: 50px;
+  bottom: -17px;
+}
 .scroll{
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */

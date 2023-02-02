@@ -5,7 +5,12 @@ function TaskBar(props) {
 
     function handleDelete(){
         console.log("delete function is called!!")
-        props.onDelete(props.id)
+        props.onDelete(props.taskItem["unique"])
+    }
+
+    function handleDone(){
+      console.log("done function was called!!")
+      props.onDone(props.taskItem["unique"])
     }
 
   return (
@@ -13,7 +18,10 @@ function TaskBar(props) {
       <div className="deadline list-border">{props.taskItem.deadline}</div>
       <div className="content list-border">{props.taskItem.content}</div>
       {DayLeftRender(props.taskItem)}
-      <button onClick={handleDelete} type="button" className="btn btn-dark list-border">
+      <button onClick={handleDone} type="button" className="btn btn-dark list-border done-button btn-sm">
+        Done
+      </button>
+      <button onClick={handleDelete} type="button" className="btn btn-dark list-border delete-button btn-sm">
         Delete
       </button>
     </div>

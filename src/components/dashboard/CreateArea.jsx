@@ -5,6 +5,7 @@ function CreateArea(props) {
     deadline: "",
     title: "",
     content: "",
+    done: 0,
   });
 
   function handleChange(event) {
@@ -25,6 +26,7 @@ function CreateArea(props) {
       deadline: "",
       title: "",
       content: "",
+      done: 0,
     });
     event.preventDefault();
   }
