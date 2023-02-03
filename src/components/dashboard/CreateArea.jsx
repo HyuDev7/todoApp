@@ -72,7 +72,7 @@ function renderLeftDays(note) {
           name="content"
           onChange={handleChange}
           value={note.content}
-          placeholder="take a note"
+          placeholder="take a note or subtasks"
           rows="3"
         ></textarea>
         <button onClick={submitNote} type="button" className="btn btn-dark list-border">
