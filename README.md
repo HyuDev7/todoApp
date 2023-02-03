@@ -1,3 +1,5 @@
+# `This is still under edit`
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -69,4 +71,9 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 # todoApp
-# todoApp
+
+This is a simple todoApp for my portforio. It has 6 areas, welcome board, today's tasks area, create tasks area,\
+upcoming tasks area, done tasks area, and over tasks area. Discription of each area are as followed below.
+## welcome board
+
+This is just a greeting area. It doesn't have any function. Though it has two buttons, it doesn't work. `It's going to be fixed`
