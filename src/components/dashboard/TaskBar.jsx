@@ -16,7 +16,7 @@ function TaskBar(props) {
   return (
     <div className="task-list list-border d-flex ">
       <div className="deadline list-border">{props.taskItem.deadline}</div>
-      <div className="content list-border">{props.taskItem.content}</div>
+      <div className="content list-border">{props.taskItem.title}</div>
       {DayLeftRender(props.taskItem)}
       <button onClick={handleDone} type="button" className="btn btn-dark list-border done-button btn-sm">
         Done
