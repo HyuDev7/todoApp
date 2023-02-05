@@ -12,6 +12,7 @@
 # production
 /build
 /client/first_README.md
+/client/src/first_README
 
 # misc
 .DS_Store
