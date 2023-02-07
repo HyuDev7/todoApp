@@ -1,49 +1,13 @@
 import React, { useEffect, useState } from "react";
-// import CalculateDifferenceDays from "../CalculateDifferenceDays";
+import CalculateDifferenceDays from "../CalculateDifferenceDays";
 import TaskBar from "./TaskBar";
 
 function Upcoming(props) {
-  const [upcomingTasks, setUpcomingTasks] = useState([
+  const upcomingTasks = props.data.filter((task) => {
+    return task["done"] !== 1 && CalculateDifferenceDays(task) >=1;
+  });
 
-  ]);
-
-  const arr = []
-
-  useEffect(() =>{
-    
-     async function getTasks() {
-      try{
-        const response =  await fetch("http://localhost:5000/record");
-
-      if (!response.ok) {
-        const message = `an error occurred : ${response.statusText}`;
-        window.alert(message);
-        return;
-      }
-      
-      const tasks = await response.json()
-
-      //wanna change this logic
-      arr.push(tasks)
-      // console.log(arr)
-      setUpcomingTasks(arr);
-      console.log(upcomingTasks)
-
-      }catch{
-        // console.dir;
-      }
-    }
-
-     getTasks();
-     return;   
-  },
-  [upcomingTasks.length]);
-
-  // const upcomingTasks = props.data.filter((task) => {
-  //   return task["done"] !== 1 && CalculateDifferenceDays(task) >=1;
-  // });
-
-  // upcomingTasks.sort((date1, date2) =>new Date(date1["deadline"]) - new Date(date2["deadline"]));
+  upcomingTasks.sort((date1, date2) =>new Date(date1["deadline"]) - new Date(date2["deadline"]));
 
   function renderUpcomingTasks() {
     if (upcomingTasks.length === 0) {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import {useState, useEffect} from "react";
 import Upcoming from "./dashboard/Upcoming.jsx";
 import Greeting from "./dashboard/Greeting.jsx";
 // import Today from "./dashboard/Today.jsx";
@@ -8,55 +8,37 @@ import DayLeftRender from "./DayLeftRender.jsx";
 // import Over from "./dashboard/Over.jsx";
 
 export default function Dashboard() {
-  // const [tasks, setTasks] = useState([
-  //   {
-  //     deadline: "2023-2-1",
-  //     title: "Prototype",
-  //     content: "make a prototype",
-  //     done: 0,
-  //     unique: 0,
-  //   },
-  //   {
-  //     deadline: "2023-1-31",
-  //     title: "plan",
-  //     content: "do it",
-  //     done: 0,
-  //     unique: 1,
-  //   },
-  //   {
-  //     deadline: "2023-7-12",
-  //     title: "tactics",
-  //     content: "right now",
-  //     done: 0,
-  //     unique: 2,
-  //   },
-  //   {
-  //     deadline: "2023-1-2",
-  //     title: "memo",
-  //     content: "write it",
-  //     done: 0,
-  //     unique: 3,
-  //   },
-  //   {
-  //     deadline: "2023-9-10",
-  //     title: "note",
-  //     content: "buy a notebooks",
-  //     done: 0,
-  //     unique: 4,
-  //   },
-  //   {
-  //     deadline: "2023-1-13",
-  //     title: "note",
-  //     content: "buy a notebooks",
-  //     done: 0,
-  //     unique: 5,
-  //   },
-  // ]);
+  const [tasks, setTasks] = useState([
 
-  // const [finishedTasks, setFinishedTasks] = useState([]);
+  ]);
+
+  useEffect(() =>{
+    
+     async function getTasks() {
+      try{
+        const response =  await fetch("http://localhost:5000/record");
+
+      if (!response.ok) {
+        const message = `an error occurred : ${response.statusText}`;
+        window.alert(message);
+        return;
+      }
+      
+      //get multiple document and put them into array
+      const record = await response.json()      
+      setTasks(record);
+      console.log(tasks)
+
+      }catch{
+        // console.dir;
+      }
+    }
+
+     getTasks();
+     return;   
+  },
+  [tasks.length]);
   
-  //tasks contains a whole data from the database
-  // const [tasks, setTasks] = useState([]);
 
   //This method will add done flag
   // function doneTasks(recevedUnique) {
@@ -72,39 +54,6 @@ export default function Dashboard() {
 
   //   deleteTasks(recevedUnique);
   // }
-
-  //This method fetches the tasks from the database
-  // useEffect(() =>{
-  //   //check argument
-  //   // console.log("this is for checking argument of use effedt");
-  //   // console.log(a);
-
-  //    async function getTasks() {
-  //     console.log("here is inside of get tasks")
-  //     const response =  await fetch("http://localhost:5000/record");
-  //     //check response obj
-  //     console.log("this is below res")
-  //     console.log(response);
-
-  //     if (!response.ok) {
-  //       const message = `an error occurred : ${response.statusText}`;
-  //       window.alert(message);
-  //       return;
-  //     }
-  //     const tasks =response.json();
-  //     console.log(tasks);
-  //     //check
-  //     // console.log("this is for checking response.json()")
-  //     // console.log(response.json());
-
-  //     setTasks(tasks);
-  //   }
-
-  //    getTasks();
-  //   //  console.log("get tasks func called")
-  //    return;   
-  // },
-  // [tasks.length]);
 
   //This method will delete a task
   // async function deleteTasks(id) {
@@ -140,7 +89,7 @@ export default function Dashboard() {
             // delete={deleteTasks}
           />
           <Upcoming
-            // data={tasks}
+            data={tasks}
             day_left={DayLeftRender}
             // delete={deleteTasks}
             // done={doneTasks}

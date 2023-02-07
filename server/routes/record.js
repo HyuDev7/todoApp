@@ -20,11 +20,21 @@ recordRoutes.route("/record/").get(function (req, res) {
       console.log("here is on record.js")
       const collection = db_connect.collection("tasks");
       const query = { title: "asdf" };
-      const result = await collection.findOne(query);
-      console.log("check")
-      console.log(result);
+      //get multiple documents
+      const cursor = await collection.find();
 
+      if ((await cursor.count()) === 0) {
+        console.log("No documents found!");
+      }
+
+      console.log("check");
+      // console.log(cursor);
+      const result = await cursor.toArray();
+      console.log(result)
+
+      //send a result(document to client)
       res.json(result);
+
     }catch{
     console.dir;
     }    
