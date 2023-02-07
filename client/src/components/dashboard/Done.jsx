@@ -2,13 +2,15 @@ import React from "react";
 import DoneTaskBar from "./DoneTaskBar";
 
 function Done(props) {
-  
+  const doneTasks = props.data.filter((task) => {
+    return task["done"] === 1 ;
+  });
 
   function renderDoneTasks() {
-    if (props.data.length === 0) {
+    if (doneTasks.length === 0) {
       return <div className="task-list list-border">no tasks!</div>;
     } else {
-      return props.data.map((task, index) => {
+      return doneTasks.map((task, index) => {
         return(<DoneTaskBar 
          key={index}
          doneTask={task} 

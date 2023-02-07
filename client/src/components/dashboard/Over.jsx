@@ -5,7 +5,7 @@ import TaskBar from "./TaskBar";
 function Over(props) {
 
     const overTasks = props.data.filter((task) => {
-        return CalculateDifferenceDays(task) < 0;
+        return CalculateDifferenceDays(task) < 0 && task["done"] !== 1;
       });
       
     //Sorting tasks

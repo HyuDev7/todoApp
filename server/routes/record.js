@@ -1,3 +1,4 @@
+
 const express = require("express");
 
 // recordRoutes is an instance of the express router.
@@ -75,26 +76,40 @@ recordRoutes.route("/record/add").post(function (req, response) {
 
 // This section will help you update a record by id.
 recordRoutes.route("/update/:id").post(function (req, response) {
-  let db_connect = dbo.getDb();
-  //check
-  console.log(req);
-  let myquery = { _id: ObjectId(req.params.id) };
-  let newvalues = {
-    $set: {
-      deadline: req.body.deadline,
-      title: req.body.title,
-      content: req.body.content,
-      done: req.body.done,
-      //   unique: 0,
-    },
-  };
-  db_connect
-    .collection("tasks")
-    .updateOne(myquery, newvalues, function (err, res) {
-      if (err) throw err;
-      console.log("1 document updated");
-      response.json(res);
-    });
+  console.log("---------------------------------------------------------------")
+  console.log("here is on update route")
+  async function update(){
+    try{
+      const db_connect = dbo.getDb();
+      //check
+      const objectid = new ObjectId(req.params.id)
+      console.log(objectid);
+      const  myquery = { _id:objectid };
+      console.log("this is muquery")
+      // console.log(myquery)
+      const newvalues = {
+        $set: {
+          done: 1,
+        },
+      };
+      const options = {returnDocument: "after"}
+      const collection = db_connect.collection("tasks");
+      // console.log("here is under collection")
+      const result = await collection.findOneAndUpdate(myquery, newvalues,options);
+      console.log("1 document updated")
+      console.log(result)
+      //probably need to fit
+      response.json(result);
+    }catch{
+console.dir;
+    }
+  }
+  update();
+    // .updateOne(myquery, newvalues, function (err, res) {
+    //   if (err) throw err;
+    //   console.log("1 document updated");
+    //   response.json(res);
+    // });
 });
 
 // This section will help you delete a record

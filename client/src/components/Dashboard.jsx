@@ -38,20 +38,35 @@ export default function Dashboard() {
   [tasks.length]);
   
 
-  //This method will add done flag
-  // function doneTasks(recevedUnique) {
-  //   var doneTask = tasks.filter((taskItem, index) => {
-  //     return taskItem["unique"] === recevedUnique;
-  //   });
+  // This method will add done flag
+  async function addDone(id) {
+    // var doneTask = tasks.filter((taskItem, index) => {
+    //   return taskItem["unique"] === recevedUnique;
+    // });
 
-  //   doneTask[0]["done"] = 1;
+    // doneTask[0]["done"] = 1;
 
-  //   setFinishedTasks((prevFinishedTasks) => {
-  //     return [...prevFinishedTasks, doneTask[0]];
-  //   });
+    // setFinishedTasks((prevFinishedTasks) => {
+    //   return [...prevFinishedTasks, doneTask[0]];
+    // });
 
-  //   deleteTasks(recevedUnique);
-  // }
+    // deleteTasks(recevedUnique);
+    
+    console.log("here is on addDone")
+    const idString = id.toString();
+    const response = await fetch(`http://localhost:5000/update/${idString}`,{
+      method: "POST",
+     });
+
+     //this logic will display a single updated task
+     const updatedTask = await response.json()
+     console.log("here is under updatedTask")
+     console.log(updatedTask.value)
+     setTasks((prev)=>{
+      return [...prev, updatedTask.value]
+     })
+
+  }
 
   //This method will delete a task
   // async function deleteTasks(id) {
@@ -90,13 +105,13 @@ export default function Dashboard() {
             data={tasks}
             day_left={DayLeftRender}
             // delete={deleteTasks}
-            // done={doneTasks}
+            done={addDone}
           />
-          <Done data={doneTasks} />
+          <Done data={tasks} />
           <Over 
             data={tasks}
             // delete={deleteTasks} 
-            // done={doneTasks} 
+            done={addDone} 
           />
         </div>
       </div>

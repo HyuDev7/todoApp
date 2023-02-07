@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import CalculateDifferenceDays from "../CalculateDifferenceDays";
 import TaskBar from "./TaskBar";
 
-function Upcoming(props) {
+export default function Upcoming(props) {
   const upcomingTasks = props.data.filter((task) => {
     return task["done"] !== 1 && CalculateDifferenceDays(task) >=1;
   });
@@ -18,7 +18,7 @@ function Upcoming(props) {
           return (
             <TaskBar
               key={index}
-              id={index}
+              id={task._id}
               taskItem={task}
               onDelete={props.delete}
               onDone={props.done}
@@ -40,5 +40,3 @@ function Upcoming(props) {
     </div>
   );
 }
-
-export default Upcoming;

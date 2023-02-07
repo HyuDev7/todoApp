@@ -1,7 +1,7 @@
 import React from "react";
 import DayLeftRender from "../DayLeftRender";
 
-function TaskBar(props) {
+export default function TaskBar(props) {
 
     function handleDelete(){
         console.log("delete function is called!!")
@@ -9,8 +9,9 @@ function TaskBar(props) {
     }
 
     function handleDone(){
-      console.log("done function was called!!")
-      props.onDone(props.taskItem["unique"])
+      console.log("done function was called!!");
+      console.log(props.taskItem._id)
+      props.onDone(props.taskItem._id)
     }
 
   return (
@@ -27,5 +28,3 @@ function TaskBar(props) {
     </div>
   );
 }
-
-export default TaskBar;
