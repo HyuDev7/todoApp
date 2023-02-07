@@ -1,36 +1,34 @@
 import {useState, useEffect} from "react";
 import Upcoming from "./dashboard/Upcoming.jsx";
 import Greeting from "./dashboard/Greeting.jsx";
-// import Today from "./dashboard/Today.jsx";
+import Today from "./dashboard/Today.jsx";
 import CreateArea from "./dashboard/CreateArea.jsx";
 import DayLeftRender from "./DayLeftRender.jsx";
-// import Done from "./dashboard/Done.jsx";
-// import Over from "./dashboard/Over.jsx";
+import Done from "./dashboard/Done.jsx";
+import Over from "./dashboard/Over.jsx";
 
 export default function Dashboard() {
-  const [tasks, setTasks] = useState([
-
-  ]);
+  const [tasks, setTasks] = useState([]);
+  const [doneTasks, setDoneTasks] = useState([])
 
   useEffect(() =>{
-    
      async function getTasks() {
       try{
         const response =  await fetch("http://localhost:5000/record");
 
-      if (!response.ok) {
-        const message = `an error occurred : ${response.statusText}`;
-        window.alert(message);
-        return;
-      }
-      
-      //get multiple document and put them into array
-      const record = await response.json()      
-      setTasks(record);
-      console.log(tasks)
+        if (!response.ok) {
+          const message = `an error occurred : ${response.statusText}`;
+          window.alert(message);
+          return;
+        }
+        
+        //get multiple document and put them into array
+        const record = await response.json()      
+        setTasks(record);
+        console.log(tasks)
 
-      }catch{
-        // console.dir;
+      }catch(error){
+        console.log(error.message);
       }
     }
 
@@ -67,7 +65,7 @@ export default function Dashboard() {
 
   //This method will add a task
   // async function addTask(newTask) {
-  //   setTasks((prevTasks) => {
+  //   return setTasks((prevTasks) => {
   //     return [...prevTasks, newTask];
   //   });
   // }
@@ -78,12 +76,12 @@ export default function Dashboard() {
         <div className="row" data-masonry='{"percentPosition": true }'>
           {/* <Sidebar /> */}
           <Greeting />
-          {/* <Today
+          <Today
             data={tasks}
             day_left={DayLeftRender} 
-            delete={deleteTasks}
-            done={doneTasks} 
-            /> */}
+            // delete={deleteTasks}
+            // done={doneTasks} 
+            />
           <CreateArea
             day_left={DayLeftRender}
             // delete={deleteTasks}
@@ -94,8 +92,12 @@ export default function Dashboard() {
             // delete={deleteTasks}
             // done={doneTasks}
           />
-          {/* <Done data={finishedTasks} /> */}
-          {/* <Over data={tasks} delete={deleteTasks} done={doneTasks} /> */}
+          <Done data={doneTasks} />
+          <Over 
+            data={tasks}
+            // delete={deleteTasks} 
+            // done={doneTasks} 
+          />
         </div>
       </div>
     </div>

@@ -16,22 +16,19 @@ recordRoutes.route("/record/").get(function (req, res) {
   async function run (){
     try{
       let db_connect = dbo.getDb();
-      console.log("-----------------------------------------------------------------------------------")
-      console.log("here is on record.js")
+      // console.log("-----------------------------------------------------------------------------------")
+      // console.log("here is on record.js")
       const collection = db_connect.collection("tasks");
-      const query = { title: "asdf" };
+      // const query = { title: "asdf" };
+
       //get multiple documents
       const cursor = await collection.find();
+      // if ((await collection.countDocuments()) === 0) {
+      //   console.log("No documents found!");
+      // }
 
-      if ((await cursor.count()) === 0) {
-        console.log("No documents found!");
-      }
-
-      console.log("check");
-      // console.log(cursor);
+      //convert a list of all the document into array      
       const result = await cursor.toArray();
-      console.log(result)
-
       //send a result(document to client)
       res.json(result);
 
@@ -42,16 +39,6 @@ recordRoutes.route("/record/").get(function (req, res) {
 
   //implement run functions
   run();
-    // const allTasks = cursor.toArray();
-    // console.log(res.json())
-    // console.log(allTasks)
-    // db_connect
-    //   .collection("tasks")
-    //   .find({})
-    //   .toArray(function (err, result) {
-    //     if (err) throw err;
-    //     res.json(result);
-    //   });
 });
 
 //This section will help you get a single record by id
