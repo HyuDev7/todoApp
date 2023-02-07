@@ -11,16 +11,37 @@ const dbo = require("../db/conn");
 //This help convert the id from string to ObjectId for the _id.
 const ObjectId = require("mongodb").ObjectId;
 
-//This section will help you ger a list of all the records
-recordRoutes.route("/record").get(function (req, res) {
-  let db_connect = dbo.getDb("todoApp");
-  db_connect
-    .collection("tasks")
-    .find({})
-    .toArray(function (err, result) {
-      if (err) throw err;
+//This section will help you get a list of all the records
+recordRoutes.route("/record/").get(function (req, res) {
+  async function run (){
+    try{
+      let db_connect = dbo.getDb();
+      console.log("-----------------------------------------------------------------------------------")
+      console.log("here is on record.js")
+      const collection = db_connect.collection("tasks");
+      const query = { title: "asdf" };
+      const result = await collection.findOne(query);
+      console.log("check")
+      console.log(result);
+
       res.json(result);
-    });
+    }catch{
+    console.dir;
+    }    
+  } 
+
+  //implement run functions
+  run();
+    // const allTasks = cursor.toArray();
+    // console.log(res.json())
+    // console.log(allTasks)
+    // db_connect
+    //   .collection("tasks")
+    //   .find({})
+    //   .toArray(function (err, result) {
+    //     if (err) throw err;
+    //     res.json(result);
+    //   });
 });
 
 //This section will help you get a single record by id

@@ -1,34 +1,49 @@
 import React, { useState } from "react";
 
-function CreateArea(props) {
-  const [note, setNote] = useState({
+export default function CreateArea(props) {
+  const [task, setTask] = useState({
     deadline: "",
     title: "",
     content: "",
     done: 0,
   });
 
-  function handleChange(event) {
-    const { name, value } = event.target;
-
-    setNote((prevNote) => {
-      return {
-        ...prevNote,
-        [name]: value,
-      };
+  //This function will handle the change of form content.
+  function handleChange(value) {
+    return setTask((prev) => {
+      return { ...prev, ...value };
     });
     // console.log(note);
   }
 
-  function submitNote(event) {
-    props.addData(note);
-    setNote({
+  //This function will handle the submission.
+  async function onClick(e) {
+    //check
+    console.log("onClick is called")
+
+    const newTask = {...task};
+
+    await fetch("http://localhost:5000/record/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newTask),
+    })
+    .catch(error =>{
+      window.alert(error);
+      return;
+    });
+
+    setTask({
       deadline: "",
       title: "",
       content: "",
-      done: 0,
+      done: 0
     });
-    event.preventDefault();
+    
+    console.log("prevent default is called")
+    e.preventDefault();
   }
 
 function renderLeftDays(note) {
@@ -52,35 +67,31 @@ function renderLeftDays(note) {
         <div className="task-list list-border d-flex  align-items-center">
           <input
             className="deadline list-border"
-            onChange={handleChange}
+            onChange={(e) => handleChange({deadline: e.target.value})}
             name="deadline"
-            value={note.deadline}
+            value={task.deadline}
             placeholder="yyyy-mm-dd"
           />
           <input
             className="content list-border"
-            onChange={handleChange}
+            onChange={(e) => handleChange({title: e.target.value})}
             name="title"
-            value={note.title}
+            value={task.title}
             placeholder="title"
           />
-          {renderLeftDays(note)}
-          {/* { console.log("this is under function")}
-          {console.log(note)} */}
+          {renderLeftDays(task)}
         </div>
         <textarea
           name="content"
-          onChange={handleChange}
-          value={note.content}
+          onChange={(e) => handleChange({content: e.target.value})}
+          value={task.content}
           placeholder="take a note or subtasks"
           rows="3"
         ></textarea>
-        <button onClick={submitNote} type="button" className="btn btn-dark list-border">
+        <button onClick={onClick} type="button" className="btn btn-dark list-border">
           Add
         </button>
       </form>
     </div>
   );
 }
-
-export default CreateArea;

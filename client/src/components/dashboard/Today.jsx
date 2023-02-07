@@ -21,15 +21,11 @@ function Today(props) {
       // return deadline === today;
     });
 
-    console.log("this is result log")
-    console.log(result)
     return result;
   }
 
   function renderTodayTasks(){
     const todayArray = todayTasks();
-    console.log("this is today's log")
-    console.log(todayArray)
     if(todayArray.length === 0){
       return(<div className="task-list list-border">
         no tasks!
