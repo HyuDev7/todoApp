@@ -9,7 +9,7 @@ import Over from "./dashboard/Over.jsx";
 
 export default function Dashboard() {
   const [tasks, setTasks] = useState([]);
-  const [doneTasks, setDoneTasks] = useState([])
+  // const [doneTasks, setDoneTasks] = useState([])
 
   useEffect(() =>{
      async function getTasks() {
@@ -78,12 +78,12 @@ export default function Dashboard() {
   //   setTasks(newTasks);
   // }
 
-  //This method will add a task
-  // async function addTask(newTask) {
-  //   return setTasks((prevTasks) => {
-  //     return [...prevTasks, newTask];
-  //   });
-  // }
+  // This method will add a task
+  function addTask(newTask) {
+    return setTasks((prevTasks) => {
+      return [...prevTasks, newTask];
+    });
+  }
 
   return (
     <div className="container-fluid background p-6">
@@ -100,6 +100,7 @@ export default function Dashboard() {
           <CreateArea
             day_left={DayLeftRender}
             // delete={deleteTasks}
+            onAdd={addTask}
           />
           <Upcoming
             data={tasks}

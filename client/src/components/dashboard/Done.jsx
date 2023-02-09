@@ -1,7 +1,7 @@
 import React from "react";
 import DoneTaskBar from "./DoneTaskBar";
 
-function Done(props) {
+export default function Done(props) {
   const doneTasks = props.data.filter((task) => {
     return task["done"] === 1 ;
   });
@@ -28,5 +28,3 @@ function Done(props) {
     </div>
   );
 }
-
-export default Done;
