@@ -7,7 +7,6 @@ function Today(props) {
     const passed_data = props.data;
     var today = new Date();
     today.setHours(0,0,0)
-    // const today_time = today.getTime();
 
     const result = passed_data.filter((task) => {
 
