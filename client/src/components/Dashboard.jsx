@@ -52,7 +52,7 @@ export default function Dashboard() {
 
     // deleteTasks(recevedUnique);
     
-    console.log("here is on addDone")
+    // console.log("here is on addDone")
     const idString = id.toString();
     const response = await fetch(`http://localhost:5000/update/${idString}`,{
       method: "POST",
@@ -69,14 +69,28 @@ export default function Dashboard() {
   }
 
   //This method will delete a task
-  // async function deleteTasks(id) {
-  //   await fetch(`http://localhost:5000/${id}`, {
-  //     method: "DELETE"
-  //   });
+  async function deleteTasks(id) {
+    console.log(id)
+    const idString = id.toString();
+    await fetch(`http://localhost:5000/${idString}`, {
+      method: "DELETE"
+    });
 
-  //   const newTasks = tasks.filter((el) => el.id !== id);
-  //   setTasks(newTasks);
-  // }
+    console.log("bofore delete")
+    console.log(tasks)
+    const newTasks = tasks.filter(el => el._id !== id);
+    console.log("after delete")
+    console.log(newTasks)
+    
+    setTasks(newTasks);
+    // setTasks(prevNotes => {
+    //   return prevNotes.filter((noteItem, index) => {
+    //     return noteItem._id !== id;
+    //   });
+    // });
+
+    console.log(tasks);
+  }
 
   // This method will add a task
   function addTask(newTask) {
@@ -94,24 +108,24 @@ export default function Dashboard() {
           <Today
             data={tasks}
             day_left={DayLeftRender} 
-            // delete={deleteTasks}
-            // done={doneTasks} 
+            delete={deleteTasks}
+            done={addDone} 
             />
           <CreateArea
             day_left={DayLeftRender}
-            // delete={deleteTasks}
+            delete={deleteTasks}
             onAdd={addTask}
           />
           <Upcoming
             data={tasks}
             day_left={DayLeftRender}
-            // delete={deleteTasks}
+            delete={deleteTasks}
             done={addDone}
           />
           <Done data={tasks} />
           <Over 
             data={tasks}
-            // delete={deleteTasks} 
+            delete={deleteTasks} 
             done={addDone} 
           />
         </div>

@@ -4,8 +4,8 @@ import DayLeftRender from "../DayLeftRender";
 export default function TaskBar(props) {
 
     function handleDelete(){
-        console.log("delete function is called!!")
-        props.onDelete(props.taskItem["unique"])
+        console.log("delete function is called!!");
+        props.onDelete(props.taskItem._id);
     }
 
     function handleDone(){

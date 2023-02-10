@@ -1,5 +1,5 @@
 const express = require("express");
-const { MongoClient } = require("mongodb");
+// const { MongoClient } = require("mongodb");
 
 // recordRoutes is an instance of the express router.
 // We use it to define our routes.
@@ -131,14 +131,22 @@ recordRoutes.route("/update/:id").post(function (req, response) {
 
 // This section will help you delete a record
 recordRoutes.route("/:id").delete((req, response) => {
-  let db_connect = dbo.getDb();
-  const objectid = new ObjectId(req.params.id);
-  let myquery = { _id: objectid };
-  db_connect.collection("tasks").deleteOne(myquery, function (err, obj) {
-    if (err) throw err;
-    console.log("1 document deleted");
-    response.json(obj);
-  });
+  async function run(){
+    try{
+      let db_connect = dbo.getDb();
+      const collection = db_connect.collection("tasks");
+      const objectid = new ObjectId(req.params.id);
+      let myquery = { _id: objectid };
+      const result = collection.deleteOne(myquery);
+      console.log("1 document deleted");
+      console.log(response.json(result));
+    }finally{
+
+    }
+  }
+  // run.catch(console.dir);
+  run();
+  
 });
 
 module.exports = recordRoutes;

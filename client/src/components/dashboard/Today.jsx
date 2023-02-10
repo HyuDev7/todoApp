@@ -10,15 +10,7 @@ function Today(props) {
     // const today_time = today.getTime();
 
     const result = passed_data.filter((task) => {
-
-      return (CalculateDifferenceDays(task) === 0 ? task : null)
-
-      // const deadline = new Date(task.deadline);
-      // const deadline_time = deadline.getTime();
-      // console.log("this is today's time" + today)
-      // console.log("this is deadline time" + deadline)
-      // return today_time === deadline_time;
-      // return deadline === today;
+      return (CalculateDifferenceDays(task) === 0 && task["done"]!==1)
     });
 
     return result;
