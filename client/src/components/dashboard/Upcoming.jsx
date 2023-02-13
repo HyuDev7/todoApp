@@ -8,6 +8,7 @@ function Upcoming(props) {
     return task["done"] !== 1 && CalculateDifferenceDays(task) >=1;
   });
 
+  //sorting tasks
   upcomingTasks.sort((date1, date2) =>new Date(date1["deadline"]) - new Date(date2["deadline"]));
 
   function renderUpcomingTasks() {

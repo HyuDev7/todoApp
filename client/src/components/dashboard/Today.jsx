@@ -3,39 +3,31 @@ import CalculateDifferenceDays from "../CalculateDifferenceDays";
 import TaskBar from "./TaskBar";
 
 function Today(props) {
+  //This will help get a document, which deadline is today
   function todayTasks() {
     const passed_data = props.data;
     var today = new Date();
     today.setHours(0,0,0)
 
+    //retrieve document which deadline is today
     const result = passed_data.filter((task) => {
-
       return (CalculateDifferenceDays(task) === 0 ? task : null)
-
-      // const deadline = new Date(task.deadline);
-      // const deadline_time = deadline.getTime();
-      // console.log("this is today's time" + today)
-      // console.log("this is deadline time" + deadline)
-      // return today_time === deadline_time;
-      // return deadline === today;
     });
 
-    console.log("this is result log")
-    console.log(result)
     return result;
   }
 
+  //This will help render today's area
   function renderTodayTasks(){
     const todayArray = todayTasks();
-    console.log("this is today's log")
-    console.log(todayArray)
+    // console.log("this is today's log")
+    // console.log(todayArray)
     if(todayArray.length === 0){
       return(<div className="task-list list-border">
         no tasks!
       </div>)
     }else{
       return todayArray.map((filtered_task, index) => {
-        console.log(filtered_task)
         return (
           <TaskBar
               key={index}

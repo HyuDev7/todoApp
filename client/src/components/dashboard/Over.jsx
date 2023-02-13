@@ -14,7 +14,9 @@ function Over(props) {
     function renderOverTasks() {
       if (overTasks.length === 0) {
         return <div className="task-list list-border">no tasks!</div>;
-      } else {
+      } 
+      else 
+      {
         return (
           overTasks.map((task, index) => {
             return (

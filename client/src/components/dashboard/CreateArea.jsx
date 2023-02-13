@@ -32,15 +32,10 @@ function CreateArea(props) {
   }
 
 function renderLeftDays(note) {
-    // console.log("this is in renderFunction: ");
-    // console.log(note)
-    // console.log()
     const regex = /^[0-9]{4}-([1-9]|1[0-2])-([1-9]|[12][0-9]|3[01])$/;
     if (!regex.test(note.deadline)) {
-      // console.log("here is false")
       return <div className="left-day expired-day list-border text-center">-----</div>;
     } else {
-      // console.log("here is true")
       return props.day_left(note);
     }
   }
