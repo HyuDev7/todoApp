@@ -4,10 +4,10 @@ This is a simple todoApp for my portforio. It has 6 areas, welcome board, today'
 upcoming tasks area, done tasks area, and over tasks area. Discription of each area are as followed below.
 
 # About version
-There are 2 versions of todoApp, stand-alone version, and completed version.\ 
-In main branch, I put a stand-alone version. You can run application locally.\ 
-It's suitable for checking how application works. 
-In another version, it requires you to run server, and connect to MongoDb Atlas.
+There are 2 versions of todoApp, stand-alone version, and completed version.\
+In main branch, I put a stand-alone version. You can run application locally.\
+It's suitable for checking how application works.\
+In another version, it requires you to run server, and connect to MongoDb Atlas.\
 More information, please jump to another branch, ver_server
 
 
