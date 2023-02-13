@@ -5,10 +5,10 @@ upcoming tasks area, done tasks area, and over tasks area. Discription of each a
 
 # About version
 There are 2 versions of todoApp, stand-alone version, and completed version.\ 
-In main branch, I put a stand-alone version. You can run application locally.\
+In main branch, I put a stand-alone version. You can run application locally.\ 
 It's suitable for checking how application works. 
 In another version, it requires you to run server, and connect to MongoDb Atlas.
-More information, please jump to another branch, ver_Server
+More information, please jump to another branch, ver_server
 
 
 # `how to use it`
