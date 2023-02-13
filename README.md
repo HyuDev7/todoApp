@@ -33,7 +33,7 @@ This is just a greeting area. It doesn't have any function. Though it has two bu
 Tasks which deadline is today are shown on this area.
 
 ## create tasks area
-You can use this area to make a new task. You can create tasks with its deadline, title, and content.\ 
+You can use this area to make a new task. You can create tasks with its deadline, title, and content.\
 However, its contents are `not` displayed on application. It's going to be fixed.
 
 ## upcoming tasks area
@@ -41,7 +41,7 @@ Usually, created tasks are displayed here. Tasks are sorted in descending order 
 You can delete them, or move it to done tasks area when completing it.
 
 ## done tasks area
-When you complete tasks, and push `Done button`, they're sent here. You can check completed tasks on here.
+When you complete tasks, and push `Done button`, they're sent here. You can check completed tasks here.\
 However, done tasks can't be deleted. `This is going to be fixed`.
 
 ## over tasks area
