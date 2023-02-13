@@ -1,18 +1,17 @@
-# `This is still under edit`
-
 # todoApp
 
-This is a simple todoApp for my portforio. It has 6 areas, welcome board, today's tasks area, create tasks area,\
-upcoming tasks area, done tasks area, and over tasks area. Discription of each area are as followed below.
+This is a simple todoApp for my portforio. It's powerd by MongoDB, Express.js, React, Node.js mainly.\
+It has 6 areas, welcome board, today's tasks area, create tasks area, upcoming tasks area,\
+done tasks area, and over tasks area. Discription of each area are as followed below.
 
 ## how to use it
-This app consist of client part, and server part. You need to run `npm start` on client directory,\
-and `node server.js` on server directory.
+This app consist of client part, and server part. It requires you to take MongoDB Atlas account.\
+You need to run `npm start` on client directory, and `node server.js` on server directory.
 
 ### about client side
 You just need to run `npm start` on client directory. 
 
-### `npm start`
+### npm start
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
@@ -36,11 +35,11 @@ Tasks which deadline is today are shown on this area.
 
 ## create tasks area
 You can use this area to make a new task. You can create tasks with its deadline, title, and content.\ 
-However, its contents are `not` displayed on application. It's going to be fixed.
+However, the contents are `not` displayed on application. `It's going to be fixed`.
 
 ## upcoming tasks area
 Usually, created tasks are displayed here. Tasks are sorted in descending order of time.\
-You can delete them, or move it to done tasks area when completing it.
+You can delete them by clicking `Delete button`, or move it to done tasks area when completing it by clicking `Done button`.
 
 ## done tasks area
 When you complete tasks, and push `Done button`, they're sent here. You can check completed tasks on here.
