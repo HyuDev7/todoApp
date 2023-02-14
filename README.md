@@ -1,12 +1,18 @@
-# `This is still under edit`
+# todoApp
 
-# Getting Started with Create React App
+This is a simple todoApp for my portforio. It has 6 areas, welcome board, today's tasks area, create tasks area,\
+upcoming tasks area, done tasks area, and over tasks area. Discription of each area are as followed below.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# About version
+There are 2 versions of todoApp, stand-alone version, and completed version.\
+In main branch, I put a stand-alone version. You can run application locally.\
+It's suitable for checking how application works.\
+In another version, it requires you to run server, and connect to MongoDb Atlas.\
+More information, please jump to another branch, ver_server
 
-## Available Scripts
 
-In the project directory, you can run:
+# `how to use it`
+This app consist of only client part. You need to run `npm start` on client directory.
 
 ### `npm start`
 
@@ -16,64 +22,29 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
+## What composes this application
+As it's explained above, this application consists of 6 parts, welcome board, today's tasks area,\
+create tasks area, upcoming tasks area, done tasks area, and over tasks area.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# todoApp
-
-This is a simple todoApp for my portforio. It has 6 areas, welcome board, today's tasks area, create tasks area,\
-upcoming tasks area, done tasks area, and over tasks area. Discription of each area are as followed below.
 ## welcome board
-
 This is just a greeting area. It doesn't have any function. Though it has two buttons, it doesn't work. `It's going to be fixed`
+
+## Today's tasks area
+Tasks which deadline is today are shown on this area.
+
+## create tasks area
+You can use this area to make a new task. You can create tasks with its deadline, title, and content.\
+However, its contents are `not` displayed on application. It's going to be fixed.
+
+## upcoming tasks area
+Usually, created tasks are displayed here. Tasks are sorted in descending order of time.\
+You can delete them, or move it to done tasks area when completing it.
+
+## done tasks area
+When you complete tasks, and push `Done button`, they're sent here. You can check completed tasks here.\
+However, done tasks can't be deleted. `This is going to be fixed`.
+
+## over tasks area
+When you can't complete a task, it'll be moved to here.\
+You can check expired tasks here, and do the same action as on upcoming area, delete and done.
+
