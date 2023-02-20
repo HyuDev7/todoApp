@@ -13,7 +13,7 @@
 /* General Task List style */
 .task-list {
   background-color: #f8f8f8;
-  margin: 3% 0;
+  margin: 5% 0;
   padding: 3%;
   position: relative;
   min-width: 557px;
@@ -34,6 +34,11 @@ margin-left: 2%;
   min-width: 22%;
   padding: 3%;
   margin-left: 5%;
+}
+.collapse-button{
+  position: absolute;
+  right: -9px;
+  top: 30px;
 }
 .delete-button{
   position: absolute;
