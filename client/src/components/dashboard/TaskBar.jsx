@@ -13,7 +13,7 @@ function TaskBar(props) {
   }
 
   const target = "multiCollapse" + props.id
-  console.log(typeof target)
+  // console.log(typeof target)
 
   return (
     <div className="task-list list-border  ">
@@ -24,14 +24,14 @@ function TaskBar(props) {
 
         {/* collapse button */}
         <button
-          className="btn btn-primary list-border collapse-button"
+          className="btn btn-info btn-sm text-light list-border collapse-button"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target={"#"+target}
           aria-expanded="false"
           aria-controls={"#"+target}
         >
-          test
+          detail
         </button>
         {/*  */}
 
