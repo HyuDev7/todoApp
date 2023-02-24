@@ -12,6 +12,9 @@ function TaskBar(props) {
     props.onDone(props.taskItem["unique"]);
   }
 
+  const target = "multiCollapse" + props.id
+  console.log(typeof target)
+
   return (
     <div className="task-list list-border  ">
       <div className="list-border d-flex">
@@ -24,14 +27,14 @@ function TaskBar(props) {
           className="btn btn-primary list-border collapse-button"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target="#collapseExample"
+          data-bs-target={"#"+target}
           aria-expanded="false"
-          aria-controls="collapseExample"
+          aria-controls={"#"+target}
         >
           test
         </button>
-
         {/*  */}
+
         <button
           onClick={handleDone}
           type="button"
@@ -48,7 +51,7 @@ function TaskBar(props) {
         </button>
       </div>
 
-      <div className="collapse" id="collapseExample">
+      <div className="collapse multi-collapse" id={target}>
         <div className=" my-3 card card-body list-border">{props.taskItem.content}</div>
       </div>
     </div>

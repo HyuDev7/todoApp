@@ -22,7 +22,7 @@ function Over(props) {
             return (
               <TaskBar
               key={index}
-              id={index}
+              id={"ov" + index.toString()}
               taskItem={task}
               onDelete={props.delete}
               onDone={props.done}
