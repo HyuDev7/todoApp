@@ -1,5 +1,14 @@
 import React from "react";
-import DoneTaskBar from "./DoneTaskBar";
+
+function DoneTaskBar(props){
+  return (
+      <div className="task-list list-border d-flex ">
+        <div className="deadline list-border">{props.doneTask.deadline}</div>
+        <div className="content list-border">{props.doneTask.title}</div>
+        <div className="left-day expired-day list-border">Done!!</div>
+      </div>
+    );
+}
 
 export default function Done(props) {
   const doneTasks = props.data.filter((task) => {
