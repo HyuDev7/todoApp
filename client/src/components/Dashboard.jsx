@@ -83,6 +83,28 @@ function Dashboard() {
     deleteTasks(recevedUnique);
   }
 
+  function deleteDone(recevedUnique){
+    setFinishedTasks((prevTasks) => {
+      return prevTasks.filter((taskItem, index) => {
+        return taskItem["unique"] !== recevedUnique;
+      });
+    });
+  }
+
+  function undo(recevedUnique){
+    var undoTask = finishedTasks.filter((taskItem, index) => {
+      return taskItem["unique"] === recevedUnique;
+    });
+    console.log(undoTask);
+    undoTask[0]["done"] = 0;
+
+    setTasks((prevFinishedTasks) => {
+      return [...prevFinishedTasks, undoTask[0]];
+    });
+
+    deleteDone(recevedUnique);
+  }
+
   return (
     <div className="container-fluid background p-6">
       <div className="container px-6">
@@ -106,7 +128,10 @@ function Dashboard() {
             delete={deleteTasks}
             done={doneTasks}
           />
-          <Done data={finishedTasks} />
+          <Done 
+            data={finishedTasks}
+            delete={deleteDone}
+            undo={undo} />
           <Over data={tasks} delete={deleteTasks} done={doneTasks} />
         </div>
       </div>

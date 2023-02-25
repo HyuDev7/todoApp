@@ -20,7 +20,7 @@ function Upcoming(props) {
           return (
             <TaskBar
               key={index}
-              id={index}
+              id={"up"+index.toString()}
               taskItem={task}
               onDelete={props.delete}
               onDone={props.done}
