@@ -87,10 +87,10 @@ recordRoutes.route("/record/add").post(function (req, res) {
 
 // This section will help you update a record by id.
 recordRoutes.route("/update/:id").post(function (req, response) {
-  console.log(
-    "---------------------------------------------------------------"
-  );
-  console.log("here is on update route");
+  // console.log(
+  //   "---------------------------------------------------------------"
+  // );
+  // console.log("here is on update route");
   async function update() {
     try {
       const db_connect = dbo.getDb();
@@ -122,6 +122,50 @@ recordRoutes.route("/update/:id").post(function (req, response) {
     }
   }
   update();
+  // .updateOne(myquery, newvalues, function (err, res) {
+  //   if (err) throw err;
+  //   console.log("1 document updated");
+  //   response.json(res);
+  // });
+});
+
+//This section will help you undo a done task by id.
+recordRoutes.route("/update/undo/:id").post(function (req, response) {
+  // console.log(
+  //   "---------------------------------------------------------------"
+  // );
+  // console.log("here is on update route");
+  async function undo() {
+    try {
+      const db_connect = dbo.getDb();
+      //check
+      const objectid = new ObjectId(req.params.id);
+      console.log(objectid);
+      const myquery = { _id: objectid };
+      console.log("this is myquery");
+      // console.log(myquery)
+      const newvalues = {
+        $set: {
+          done: 0,
+        },
+      };
+      const options = { returnDocument: "after" };
+      const collection = db_connect.collection("tasks");
+      // console.log("here is under collection")
+      const result = await collection.findOneAndUpdate(
+        myquery,
+        newvalues,
+        options
+      );
+      console.log("1 document updated");
+      console.log(result);
+      //probably need to fix
+      response.json(result);
+    } catch {
+      console.dir;
+    }
+  }
+  undo();
   // .updateOne(myquery, newvalues, function (err, res) {
   //   if (err) throw err;
   //   console.log("1 document updated");
