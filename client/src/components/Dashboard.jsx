@@ -88,8 +88,7 @@ export default function Dashboard() {
     //     return noteItem._id !== id;
     //   });
     // });
-
-    console.log(tasks);
+    // console.log(tasks);
   }
 
   // This method will add a task
@@ -97,6 +96,22 @@ export default function Dashboard() {
     return setTasks((prevTasks) => {
       return [...prevTasks, newTask];
     });
+  }
+
+  //This method will undo done flag
+  async function undoDone(id){
+    const idString = id.toString();
+    const response = await fetch(`http://localhost:5000/update/undo/${idString}`,{
+      method: "POST",
+     });
+
+     //this logic will display a single updated task
+     const updatedTask = await response.json()
+     console.log("here is under updatedTask")
+     console.log(updatedTask.value)
+     setTasks((prev)=>{
+      return [...prev, updatedTask.value]
+     })
   }
 
   return (
@@ -110,7 +125,7 @@ export default function Dashboard() {
             day_left={DayLeftRender} 
             delete={deleteTasks}
             done={addDone} 
-            />
+          />
           <CreateArea
             day_left={DayLeftRender}
             delete={deleteTasks}
@@ -122,7 +137,11 @@ export default function Dashboard() {
             delete={deleteTasks}
             done={addDone}
           />
-          <Done data={tasks} />
+          <Done 
+            data={tasks} 
+            delete={deleteTasks}
+            undo={undoDone}
+          />
           <Over 
             data={tasks}
             delete={deleteTasks} 
