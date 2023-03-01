@@ -22,8 +22,8 @@ More information, please jump to another branch, ver_server
 
 
 # `how to use it`
-This app consist of only client part. You need to run `npm start` on client directory.
-clientディレクトリ上で`npm start`を実行すると[http://localhost:3000](http://localhost:3000)\
+This app consist of only client part. You need to run `npm start` on client directory.\
+clientディレクトリ上で`npm start`を実行すると[http://localhost:3000](http://localhost:3000)
 上でアプリが起動します。
 
 ### `npm start`
@@ -41,17 +41,22 @@ create tasks area, upcoming tasks area, done tasks area, and over tasks area.\
 タスクが表示されるエリア、終えたタスクが保存されるエリア、超過タスクが保存されるエリアの6つのエリアで構成されています。
 
 ## welcome board
-This is just a greeting area. It doesn't have any function. 
+This is just a greeting area. It doesn't have any function. \
+シンプルなメッセージエリアです。機能は特にありません。
 
 ## Today's tasks area
-Tasks which deadline is today are shown on this area.
+Tasks which deadline is today are shown on this area.\
+期限が当日になっているタスクを表示するエリアです。
 
 ## create tasks area
 You can use this area to make a new task. You can create tasks with its deadline, title, and content.\
+このエリア上で新しいタスクを作ることができます。作る際にはその期限・タイトル・内容を入力することができます。
 
 ## upcoming tasks area
 Usually, created tasks are displayed here. Tasks are sorted in descending order of time.\
-You can delete them, or move it to done tasks area when completing it.
+You can delete them, or move it to done tasks area when completing it.\
+基本的に作成されたタスクはこのエリアで表示されます。各タスクは降順で並び替えられます。\
+タスクを削除したり、完了した際にDoneボタンを押すことで他のエリアに移動させることができます。
 
 ## done tasks area
 When you complete tasks, and push `Done button`, they're sent here. You can check completed tasks here.\
