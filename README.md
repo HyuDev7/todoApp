@@ -60,9 +60,11 @@ You can delete them, or move it to done tasks area when completing it.\
 
 ## done tasks area
 When you complete tasks, and push `Done button`, they're sent here. You can check completed tasks here.\
-However, done tasks can't be deleted. `This is going to be fixed`.
+タスクを終え、Doneボタンを押した際、タスクはこのエリアへ移動します。このエリアでは終えたタスクを確認できるほか、\
+タスクの削除やUndoボタンを押すことでタスクを戻すこともできます。
 
 ## over tasks area
 When you can't complete a task, it'll be moved to here.\
-You can check expired tasks here, and do the same action as on upcoming area, delete and done.
+You can check expired tasks here, and do the same action as on upcoming area, delete and done.\
+期限までにタスクを終えられなかった場合、タスクはこのエリアへ移動します。ただし、このエリア上でもタスクの削除やDoneボタンを押すことはできます。
 
