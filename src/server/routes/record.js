@@ -12,11 +12,18 @@ const dbo = require("../db/conn");
 //This help convert the id from string to ObjectId for the _id.
 const ObjectId = require("mongodb").ObjectId;
 
-//This is a pass for client on db
-// const cilent = new MongoClient(process.env.ATLAS)
+const mongoose = require("mongoose");
+
+const userSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  password: String,
+});
+
+const User = mongoose.model("User", userSchema);
 
 //This section will help you get a list of all the records
-recordRoutes.route("/record/").get(function (req, res) {
+recordRoutes.route("/record").get(function (req, res) {
   async function run() {
     try {
       let db_connect = dbo.getDb();
@@ -32,7 +39,6 @@ recordRoutes.route("/record/").get(function (req, res) {
       console.dir;
     }
   }
-
   //implement run functions
   run();
 });
@@ -169,5 +175,32 @@ recordRoutes.route("/:id").delete((req, response) => {
   // run.catch(console.dir);
   run();
 });
+
+recordRoutes.route("/register").post(function (req, res) {
+  async function connectDB() {
+    try {
+      await mongoose.connect(process.env.ATLAS_URI, { dbName: "todoApp" });
+      // console.log(req.body);
+
+      newUser = new User({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+      });
+
+      // console.log(newUser);
+
+      const result = await newUser.save();
+      // console.log(result);
+      res.json(result);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  connectDB();
+});
+
+recordRoutes.route("/login").post(function (req, res) {});
 
 module.exports = recordRoutes;

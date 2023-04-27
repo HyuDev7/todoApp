@@ -14,9 +14,9 @@ export default function SignIn() {
           <label for="password">enter your password:</label>
           <input type="password" name="password" id="password" required />
         </div>
-        <button type="submit">Sign In!</button>
+        <button type="submit" onClick={()=>alert("button was clicked!")}>Sign In!</button>
       </Form>
-      <p>No account? Let's sign up from <Link to={"signup"}>here!</Link></p>
+      <p>No account? Let's sign up from <Link to={"/signup"}>here!</Link></p>
     </div>
   );
 }

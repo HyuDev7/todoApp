@@ -33,7 +33,6 @@ export default function CreateArea(props) {
         window.alert(message);
         return;
       }
-      
     } catch (error) {
       window.alert(error);
       return;
