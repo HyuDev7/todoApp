@@ -8,6 +8,7 @@ import {
 import SignUp from "./client/routes/SignUp";
 import SignIn from "./client/routes/SignIn";
 import ErrorPage from "./ErrorPage";
+import SuccessSignUp from "./client/routes/SuccessSignUp"
 import App from "./client/routes/App";
 
 
@@ -31,6 +32,11 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />,
   },
+  {
+    path: "/succeedsignup",
+    element: <SuccessSignUp />,
+    errorElement: <ErrorPage />,
+  }
 ]);
 const container = document.getElementById("root");
 const root = createRoot(container);

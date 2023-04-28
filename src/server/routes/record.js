@@ -201,6 +201,10 @@ recordRoutes.route("/register").post(function (req, res) {
   connectDB();
 });
 
-recordRoutes.route("/login").post(function (req, res) {});
+recordRoutes.route("/login").post(function (req, res) {
+
+
+  
+});
 
 module.exports = recordRoutes;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function SignUp() {
   const [profile, setProfile] = useState({
@@ -7,6 +7,8 @@ export default function SignUp() {
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   function handleChange(dic) {
     setProfile((prev) => {
@@ -17,7 +19,8 @@ export default function SignUp() {
   //This function will handle the submission.
   async function onClick(e) {
     const newProfile = profile;
-    console.log(typeof newProfile);
+    // console.log(typeof newProfile);
+
     try {
       const response = await fetch("http://localhost:5000/register", {
         method: "POST",
@@ -39,11 +42,15 @@ export default function SignUp() {
 
     e.preventDefault();
 
+    //clear input areas
     setProfile({
       name: "",
       email: "",
       password: "",
     });
+
+    //navigate user to success page
+    navigate("/succeedsignup");
   }
 
   return (
