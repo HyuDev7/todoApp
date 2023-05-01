@@ -11,15 +11,14 @@ const dbo = require("../db/conn");
 
 //This help convert the id from string to ObjectId for the _id.
 const ObjectId = require("mongodb").ObjectId;
-
 const mongoose = require("mongoose");
 
+//define users collection schema
 const userSchema = new mongoose.Schema({
   name: String,
   email: String,
   password: String,
 });
-
 const User = mongoose.model("User", userSchema);
 
 //This section will help you get a list of all the records
@@ -71,15 +70,9 @@ recordRoutes.route("/record/add").post(function (req, res) {
       const insertedId = await db_connect.collection("tasks").insertOne(myobj);
       console.log("-----------------------");
       console.log(insertedId);
-      // const result = await collection.find({}).forEach(doc => console.log(doc));
       const cursor = collection.find({});
-      // cursor.forEach((doc) => console.log(doc));
-      // .sort({_id:-1}).limit(1).toArray()
       console.log("----------------1 document added----------------------");
-      // for checking what document is added
-      // console.dir(await cursor.toArray());
       res.json(await cursor.toArray());
-      // res.body(await cursor.toArray())
     } finally {
     }
   }
@@ -132,7 +125,6 @@ recordRoutes.route("/update/undo/:id").post(function (req, response) {
       const db_connect = dbo.getDb();
       //check
       const objectid = new ObjectId(req.params.id);
-      console.log(objectid);
       const myquery = { _id: objectid };
       console.log("this is myquery");
       const newvalues = {
@@ -202,9 +194,24 @@ recordRoutes.route("/register").post(function (req, res) {
 });
 
 recordRoutes.route("/login").post(function (req, res) {
+  async function login() {
+    try {
+      await mongoose.connect(process.env.ATLAS_URI, { dbName: "todoApp" });
+      // console.log(req.body);
 
+      const gotRecord = await User.findOne({ email: req.body.email }).exec();
+      // console.log(gotRecord);
+      if (gotRecord === null) {
+        res.json({ status: 0 });
+      } else {
+        res.json({ status: 1 });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
-  
+  login();
 });
 
 module.exports = recordRoutes;

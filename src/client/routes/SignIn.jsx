@@ -1,19 +1,31 @@
+import { useState } from "react";
 import React from "react";
-import { Link, Form } from "react-router-dom";
+import { Link, Form, useNavigate, redirect } from "react-router-dom";
 
 export default function SignIn() {
-  
+  const navigate = useNavigate();
+
+  const [query, setQuery] = useState({
+    email: "",
+    password: "",
+  });
+
+  function handleChange(dic) {
+    setQuery((prev) => {
+      return { ...prev, ...dic };
+    });
+  }
+
   async function onClick(e) {
-    const newProfile = profile;
-    // console.log(typeof newProfile);
+    const newQuery = query;
 
     try {
-      const response = await fetch("http://localhost:5000/register", {
+      const response = await fetch("http://localhost:5000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(newProfile),
+        body: JSON.stringify(newQuery),
       });
 
       if (!response.ok) {
@@ -21,24 +33,33 @@ export default function SignIn() {
         window.alert(message);
         return;
       }
+
+      const result = await response.json();
+      // console.log(result);
+
+      // console.log(query);
+
+      e.preventDefault();
+
+      if (result.status === 1) {
+        navigate("/todo");
+      } else if (result.status === 0) {
+        // console.log("you got redirected");
+        //clear input areas
+        setQuery({
+          email: "",
+          password: "",
+        });
+        window.alert("I'm sorry. Please enter your email or password again...");
+        return redirect("/signin");
+      }
+
+      // console.log(await response.json());
     } catch (error) {
       window.alert(error);
       return;
     }
-
-    e.preventDefault();
-
-    //clear input areas
-    setProfile({
-      name: "",
-      email: "",
-      password: "",
-    });
-
-    //navigate user to success page
-    navigate("/succeedsignup");
   }
-
 
   return (
     <div>
@@ -46,15 +67,33 @@ export default function SignIn() {
       <Form method="post">
         <div className="e-mail_form">
           <label for="e-mail">enter your e-mail:</label>
-          <input type="email" name="e-mail" id="e-mail" required />
+          <input
+            type="email"
+            name="e-mail"
+            id="e-mail"
+            value={query.email}
+            onChange={(e) => handleChange({ email: e.target.value })}
+            required
+          />
         </div>
         <div className="password_form">
           <label for="password">enter your password:</label>
-          <input type="password" name="password" id="password" required />
+          <input
+            type="password"
+            name="password"
+            id="password"
+            value={query.password}
+            onChange={(e) => handleChange({ password: e.target.value })}
+            required
+          />
         </div>
-        <button type="submit" onClick={onClick}>Sign In!</button>
+        <button type="button" onClick={onClick}>
+          Sign In!
+        </button>
       </Form>
-      <p>No account? Let's sign up from <Link to={"/signup"}>here!</Link></p>
+      <p>
+        No account? Let's sign up from <Link to={"/signup"}>here!</Link>
+      </p>
     </div>
   );
 }
