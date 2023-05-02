@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 // const { MongoClient } = require("mongodb");
 
@@ -6,12 +7,18 @@ const express = require("express");
 // The router will be added as a middleware and will take control of requests starting with path /record.
 const recordRoutes = express.Router();
 
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
+
 //This will help us connect to the database
 const dbo = require("../db/conn");
 
 //This help convert the id from string to ObjectId for the _id.
 const ObjectId = require("mongodb").ObjectId;
 const mongoose = require("mongoose");
+// var encrypt = require('mongoose-encryption');
+
+// const secret = "thisisourlittlesecret";
 
 //define users collection schema
 const userSchema = new mongoose.Schema({
@@ -19,6 +26,9 @@ const userSchema = new mongoose.Schema({
   email: String,
   password: String,
 });
+
+// userSchema.plugin(encrypt, { secret: secret, encryptedFields: ['password']});
+
 const User = mongoose.model("User", userSchema);
 
 //This section will help you get a list of all the records
@@ -171,20 +181,23 @@ recordRoutes.route("/:id").delete((req, response) => {
 recordRoutes.route("/register").post(function (req, res) {
   async function connectDB() {
     try {
-      await mongoose.connect(process.env.ATLAS_URI, { dbName: "todoApp" });
+      mongoose.connect(process.env.ATLAS_URL, { dbName: "todoApp" });
       // console.log(req.body);
 
-      newUser = new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
+      const password = req.body.password;
+
+      bcrypt.hash(password, saltRounds, function (err, hash) {
+        // Store hash in your password DB.
+        newUser = new User({
+          name: req.body.name,
+          email: req.body.email,
+          password: hash,
+        });
+
+        const result = newUser.save();
+        // console.log(result);
+        res.json(result);
       });
-
-      // console.log(newUser);
-
-      const result = await newUser.save();
-      // console.log(result);
-      res.json(result);
     } catch (error) {
       console.error(error);
     }
@@ -196,15 +209,25 @@ recordRoutes.route("/register").post(function (req, res) {
 recordRoutes.route("/login").post(function (req, res) {
   async function login() {
     try {
-      await mongoose.connect(process.env.ATLAS_URI, { dbName: "todoApp" });
+      await mongoose.connect(process.env.ATLAS_URL, { dbName: "todoApp" });
       // console.log(req.body);
+
+      const password = req.body.password;
 
       const gotRecord = await User.findOne({ email: req.body.email }).exec();
       // console.log(gotRecord);
       if (gotRecord === null) {
         res.json({ status: 0 });
       } else {
-        res.json({ status: 1 });
+        bcrypt.compare(password, gotRecord.password, function (err, result) {
+          if(result === true){
+            res.json({ status: 1 });
+          }else{
+            res.json({ status: 0 });
+          }
+        });
+
+        
       }
     } catch (error) {
       console.error(error);
