@@ -24,7 +24,7 @@ export default function Dashboard() {
       //get multiple document and put them into array
       const record = await response.json();
       setTasks(record);
-      console.log(tasks);
+      // console.log(tasks);
     } catch (error) {
       console.log(error.message);
     }

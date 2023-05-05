@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import auth, { signUpWithPassword } from "../../auth";
 
 export default function SignUp() {
   const [profile, setProfile] = useState({
@@ -20,27 +21,11 @@ export default function SignUp() {
   async function onClick(e) {
     const newProfile = profile;
     // console.log(typeof newProfile);
+    const email = newProfile.email;
+    const password = newProfile.password;
 
-    try {
-      const response = await fetch("http://localhost:5000/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newProfile),
-      });
-
-      if (!response.ok) {
-        const message = `an error occurred : ${response.statusText}`;
-        window.alert(message);
-        return;
-      }
-    } catch (error) {
-      window.alert(error);
-      return;
-    }
-
-    e.preventDefault();
+    console.log(auth);
+    signUpWithPassword(email, password, navigate);
 
     //clear input areas
     setProfile({
@@ -48,9 +33,6 @@ export default function SignUp() {
       email: "",
       password: "",
     });
-
-    //navigate user to success page
-    navigate("/succeedsignup");
   }
 
   return (
