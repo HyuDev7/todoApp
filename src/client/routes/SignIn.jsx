@@ -1,6 +1,7 @@
 import { useState } from "react";
 import React from "react";
-import { Link, Form, useNavigate, redirect } from "react-router-dom";
+import { Link, Form, useNavigate } from "react-router-dom";
+import { signInWithPassword } from "../../auth";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -17,48 +18,19 @@ export default function SignIn() {
   }
 
   async function onClick(e) {
+    e.preventDefault();
+
     const newQuery = query;
+    const email = newQuery.email;
+    const password = newQuery.password;
 
-    try {
-      const response = await fetch("http://localhost:5000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newQuery),
-      });
+    signInWithPassword(email, password, navigate);
 
-      if (!response.ok) {
-        const message = `an error occurred : ${response.statusText}`;
-        window.alert(message);
-        return;
-      }
-
-      const result = await response.json();
-      // console.log(result);
-
-      // console.log(query);
-
-      e.preventDefault();
-
-      if (result.status === 1) {
-        navigate("/todo");
-      } else if (result.status === 0) {
-        // console.log("you got redirected");
-        //clear input areas
-        setQuery({
-          email: "",
-          password: "",
-        });
-        window.alert("I'm sorry. Please enter your email or password again...");
-        return redirect("/signin");
-      }
-
-      // console.log(await response.json());
-    } catch (error) {
-      window.alert(error);
-      return;
-    }
+    //clear input areas
+    setQuery({
+      email: "",
+      password: "",
+    });
   }
 
   return (

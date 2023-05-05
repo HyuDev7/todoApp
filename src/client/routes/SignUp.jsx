@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import auth, { signUpWithPassword } from "../../auth";
+import { signUpWithPassword } from "../../auth";
 
 export default function SignUp() {
   const [profile, setProfile] = useState({
@@ -24,7 +24,7 @@ export default function SignUp() {
     const email = newProfile.email;
     const password = newProfile.password;
 
-    console.log(auth);
+    // console.log(auth);
     signUpWithPassword(email, password, navigate);
 
     //clear input areas
