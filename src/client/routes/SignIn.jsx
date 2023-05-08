@@ -1,7 +1,12 @@
 import { useState } from "react";
 import React from "react";
 import { Link, Form, useNavigate } from "react-router-dom";
-import { signInWithPassword } from "../../auth";
+import {
+  signInWithPassword,
+  signInWithGoogleAccount,
+  signInWithGoogleAccountRedirecting,
+  checkAuth,
+} from "../../auth";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -17,7 +22,7 @@ export default function SignIn() {
     });
   }
 
-  async function onClick(e) {
+  function onClick(e) {
     e.preventDefault();
 
     const newQuery = query;
@@ -33,12 +38,20 @@ export default function SignIn() {
     });
   }
 
+  function signInWithGoogle(e) {
+    e.preventDefault();
+    // signInWithGoogleAccountRedirecting();
+    signInWithGoogleAccount();
+    checkAuth(navigate);
+    // console.log(checkAuth(navigate));
+  }
+
   return (
     <div>
       <h1>hello! here is sign in page!!</h1>
       <Form method="post">
         <div className="e-mail_form">
-          <label for="e-mail">enter your e-mail:</label>
+          <label htmlFor="e-mail">enter your e-mail:</label>
           <input
             type="email"
             name="e-mail"
@@ -49,7 +62,7 @@ export default function SignIn() {
           />
         </div>
         <div className="password_form">
-          <label for="password">enter your password:</label>
+          <label htmlFor="password">enter your password:</label>
           <input
             type="password"
             name="password"
@@ -66,6 +79,10 @@ export default function SignIn() {
       <p>
         No account? Let's sign up from <Link to={"/signup"}>here!</Link>
       </p>
+      <p>want to log in with your google account? push the button!</p>
+      <button type="button" onClick={signInWithGoogle}>
+        sign in with google
+      </button>
     </div>
   );
 }

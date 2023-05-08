@@ -18,8 +18,12 @@ export default function CreateArea(props) {
   //This function will handle the submission.
   async function onClick(e) {
     const newTask = task;
+    // console.log(window.location.pathname)
+    const currentId = window.location.pathname;
+    const id = currentId.replaceAll("/","").replaceAll("todo","")
+    // console.log(id)
     try {
-      const response = await fetch("http://localhost:5000/record/add", {
+      const response = await fetch(`http://localhost:5000/record/add/${id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

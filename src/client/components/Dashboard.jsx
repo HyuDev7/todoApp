@@ -9,11 +9,14 @@ import Over from "./dashboard/Over.jsx";
 
 export default function Dashboard() {
   const [tasks, setTasks] = useState([]);
+  const [trigger, setTrigger] = useState(false);
 
   async function getTasks() {
-
     try {
-      const response = await fetch("http://localhost:5000/record");
+      const currentId = window.location.pathname;
+      const uid = currentId.replaceAll("/", "").replaceAll("todo", "");
+
+      const response = await fetch(`http://localhost:5000/record/${uid}`);
 
       if (!response.ok) {
         const message = `an error occurred : ${response.statusText}`;
@@ -22,17 +25,20 @@ export default function Dashboard() {
       }
 
       //get multiple document and put them into array
-      const record = await response.json();
-      setTasks(record);
-      // console.log(tasks);
+      const newRecord = await response.json();
+      console.log(tasks);
+      setTasks(newRecord);
+      console.log(tasks);
     } catch (error) {
       console.log(error.message);
     }
   }
 
   useEffect(() => {
+    console.log("useEffect is called");
     getTasks();
-  }, [tasks.length]);
+    setTrigger(false);
+  }, [trigger]);
 
   // This method will add done flag
   async function addDone(id) {
@@ -40,22 +46,30 @@ export default function Dashboard() {
     await fetch(`http://localhost:5000/update/${idString}`, {
       method: "POST",
     });
-    getTasks();
+    setTrigger(true);
   }
 
   //This method will delete a task
   async function deleteTasks(id) {
     const idString = id.toString();
-    await fetch(`http://localhost:5000/${idString}`, {
+    const response = await fetch(`http://localhost:5000/${idString}`, {
       method: "DELETE",
-    }).then((res) => console.log(res));
-    console.log("getTask is colled");
-    getTasks();
+    });
+    console.log(response);
+    if (!response.ok) {
+      const message = `an error occurred : ${response.statusText}`;
+      window.alert(message);
+      return;
+    }
+
+    setTrigger(true);
   }
 
   // This method will add a task
   function addTask() {
-    getTasks();
+    console.log("addtask is called");
+    setTrigger(true);
+    // getTasks();
   }
 
   //This method will undo done flag
@@ -69,12 +83,12 @@ export default function Dashboard() {
     );
 
     if (!response.ok) {
-        const message = `an error occurred : ${response.statusText}`;
-        window.alert(message);
-        return;
-      }
+      const message = `an error occurred : ${response.statusText}`;
+      window.alert(message);
+      return;
+    }
 
-    getTasks();
+    setTrigger(true);
   }
 
   return (

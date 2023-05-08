@@ -11,7 +11,6 @@ import ErrorPage from "./ErrorPage";
 import SuccessSignUp from "./client/routes/SuccessSignUp"
 import App from "./client/routes/App";
 
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,7 +27,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/todo",
+    path: ":userId/todo",
     element: <App />,
     errorElement: <ErrorPage />,
   },

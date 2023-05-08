@@ -1,5 +1,4 @@
 require("dotenv").config();
-// console.log(require("dotenv").config())
 const { MongoClient } = require("mongodb");
 const Db = process.env.ATLAS_URL;
 const client = new MongoClient(Db);

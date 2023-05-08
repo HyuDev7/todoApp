@@ -18,21 +18,32 @@ const userSchema = new mongoose.Schema({
   email: String,
   password: String,
 });
-// userSchema.plugin(encrypt, { secret: secret, encryptedFields: ['password']});
+const taskSchema = new mongoose.Schema({
+  uid: String,
+  deadline: String,
+  title: String,
+  content: String,
+  done: Number,
+});
 const User = mongoose.model("User", userSchema);
+const Task = mongoose.model("Task", taskSchema);
 
 //This section will help you get a list of all the records
-recordRoutes.route("/record").get(function (req, res) {
+recordRoutes.route("/record/:uid").get(function (req, res) {
   async function run() {
     try {
-      let db_connect = dbo.getDb();
-      const collection = db_connect.collection("tasks");
-
+      // let db_connect = dbo.getDb();
+      // const collection = db_connect.collection("tasks");
+      mongoose.connect(process.env.ATLAS_URL, { dbName: "todoApp" });
+      const reqUid = req.params.uid;
       //get multiple documents
-      const cursor = await collection.find();
+      // const cursor = await collection.find();
+      const result = await Task.find({uid:reqUid}).exec();
 
       //convert a list of all the document into array
-      const result = await cursor.toArray();
+      // const result = await cursor.toArray();
+      console.log("this is record")
+      console.log(result);
       res.json(result);
     } catch {
       console.dir;
@@ -43,37 +54,57 @@ recordRoutes.route("/record").get(function (req, res) {
 });
 
 //This section will help you get a single record by id
-recordRoutes.route("/record/:id").get(function (req, res) {
-  let db_connect = dbo.getDb();
-  let myquery = { _id: ObjectId(req.params.id) };
-  db_connect.collection("tasks").findOne(myquery, function (err, result) {
-    if (err) throw err;
-    //check what result is
-    console.log(result);
-    console.log(res.json(result));
-    res.json(result);
-  });
-});
+// recordRoutes.route("/record/:id").get(function (req, res) {
+//   let db_connect = dbo.getDb();
+//   let myquery = { _id: ObjectId(req.params.id) };
+//   db_connect.collection("tasks").findOne(myquery, function (err, result) {
+//     if (err) throw err;
+//     //check what result is
+//     console.log(result);
+//     console.log(res.json(result));
+//     res.json(result);
+//   });
+// });
 
 // This section will help you create a new record.
-recordRoutes.route("/record/add").post(function (req, res) {
+recordRoutes.route("/record/add/:uid").post(function (req, res) {
   async function addTask() {
     try {
-      let db_connect = dbo.getDb();
-      const collection = db_connect.collection("tasks");
-      let myobj = {
-        deadline: req.body.deadline,
-        title: req.body.title,
-        content: req.body.content,
-        done: req.body.done,
-      };
-      const insertedId = await db_connect.collection("tasks").insertOne(myobj);
+      // let db_connect = dbo.getDb();
+      // const collection = db_connect.collection("tasks");
+      // let myobj = {
+      //   deadline: req.body.deadline,
+      //   title: req.body.title,
+      //   content: req.body.content,
+      //   done: req.body.done,
+      // };
+      // const insertedId = await db_connect.collection("tasks").insertOne(myobj);
+      // const insertedId = record.save();
+      const newUid = req.params.uid;
+      const newDeadline = req.body.deadline;
+      const newTitle = req.body.title;
+      const newContent = req.body.content;
+      const newDone = req.body.done;
+
+      mongoose.connect(process.env.ATLAS_URL, { dbName: "todoApp" });
+
+      const record = new Task({
+        uid: newUid,
+        deadline: newDeadline,
+        title: newTitle,
+        content: newContent,
+        done: newDone,
+      });
+      const result = record.save();
       console.log("-----------------------");
-      console.log(insertedId);
-      const cursor = collection.find({});
+      console.log(result);
+      // const cursor = Task.find({});
       console.log("----------------1 document added----------------------");
-      res.json(await cursor.toArray());
-    } finally {
+      // console.log(cursor);
+      // res.json(await cursor.toArray());
+      res.json(result);
+    } catch (err) {
+      console.error(err);
     }
   }
   addTask();
@@ -81,10 +112,6 @@ recordRoutes.route("/record/add").post(function (req, res) {
 
 // This section will help you update a record by id.
 recordRoutes.route("/update/:id").post(function (req, response) {
-  // console.log(
-  //   "---------------------------------------------------------------"
-  // );
-  // console.log("here is on update route");
   async function update() {
     try {
       const db_connect = dbo.getDb();
@@ -167,38 +194,5 @@ recordRoutes.route("/:id").delete((req, response) => {
   // run.catch(console.dir);
   run();
 });
-
-// recordRoutes.route("/register").post(function (req, res) {
-  
-// });
-
-// recordRoutes.route("/login").post(function (req, res) {
-//   async function login() {
-//     try {
-//       await mongoose.connect(process.env.ATLAS_URL, { dbName: "todoApp" });
-//       // console.log(req.body);
-
-//       const password = req.body.password;
-
-//       const gotRecord = await User.findOne({ email: req.body.email }).exec();
-//       // console.log(gotRecord);
-//       if (gotRecord === null) {
-//         res.json({ status: 0 });
-//       } else {
-//         bcrypt.compare(password, gotRecord.password, function (err, result) {
-//           if (result === true) {
-//             res.json({ status: 1 });
-//           } else {
-//             res.json({ status: 0 });
-//           }
-//         });
-//       }
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   }
-
-//   login();
-// });
 
 module.exports = recordRoutes;
