@@ -40,7 +40,7 @@ export default function SignUp() {
       <h1>hello! here is sign up page!!</h1>
       <form>
         <div className="name_form">
-          <label for="name">enter your nick name!:</label>
+          <label htmlFor="name">enter your nick name!:</label>
           <input
             type="text"
             name="name"
@@ -51,7 +51,7 @@ export default function SignUp() {
           />
         </div>
         <div className="e-mail_form">
-          <label for="email">enter your e-mail:</label>
+          <label htmlFor="email">enter your e-mail:</label>
           <input
             type="email"
             name="email"
@@ -62,7 +62,7 @@ export default function SignUp() {
           />
         </div>
         <div className="password_form">
-          <label for="password">enter your password:</label>
+          <label htmlFor="password">enter your password:</label>
           <input
             type="password"
             name="password"

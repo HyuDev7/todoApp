@@ -95,7 +95,6 @@ export default function Dashboard() {
     <div className="container-fluid background p-6">
       <div className="container px-6">
         <div className="row">
-          {/* <Sidebar /> */}
           <Greeting />
           <Today
             data={tasks}

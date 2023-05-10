@@ -6,7 +6,7 @@ export default function SuccessSignUp() {
 
   setTimeout(() => {
     navigate("/todo");
-  }, 1500);
+  }, 3000);
 
   return (
     <>

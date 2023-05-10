@@ -55,7 +55,9 @@ export function signInWithPassword(email, password, navigateCallback) {
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-      navigateCallback("/todo");
+      console.log(user);
+      const uid = user.uid;
+      navigateCallback(`/${uid}/todo`);
     })
     .catch((error) => {
       const errorCode = error.code;
